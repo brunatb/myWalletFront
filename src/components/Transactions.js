@@ -1,11 +1,15 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import UserContext from '../contexts/UserContext';
 
 export default function Transactions(){
-    const [transactions, setTransactions] = useState([]); 
+    const [transactions, setTransactions] = useState([]);
+    const { user } = useContext(UserContext); 
     useEffect(() => {
-        
+        const request = axios.get('http://localhost:3000/api/transactions', {headers: { 'Authorization': `Bearer ${user.token}`}});
+        request.then(response => setTransactions(response.data))
+        .catch(error => alert(error.response.data.error));
     })
 
     return(

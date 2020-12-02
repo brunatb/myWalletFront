@@ -9,7 +9,7 @@ export default function Earns(){
         <Wrapper>
             <p>Nova entrada</p>
             <Form>
-                <input type = 'number' placeholder = "Valor"
+                <input type = 'number' step = "0.01" min = "0.01" placeholder = "Valor"
                 
                 />
                 <input type = 'text' placeholder = "Descrição"
