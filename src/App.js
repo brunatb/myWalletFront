@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import styled from 'styled-components';
 import { UserProvider } from './contexts/UserContext';
+import Earns from './pages/Earns';
+import Expenses from './pages/Expenses';
 import Home from './pages/Home';
 
 import SignIn from './pages/SignIn';
@@ -22,6 +24,12 @@ export default function App(){
                         </Route>
                         <Route path = '/sign-in'>
                             <SignIn />
+                        </Route>
+                        <Route path = '/earns'>
+                            <Earns />
+                        </Route>
+                        <Route path = '/expenses'>
+                            <Expenses />
                         </Route>
                         <Route path = '/'>
                             <Home />
