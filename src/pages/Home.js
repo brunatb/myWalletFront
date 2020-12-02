@@ -5,6 +5,7 @@ import UserContext from '../contexts/UserContext';
 export default function Home(){
     const { user } = useContext(UserContext);
     const history = useHistory();
+    console.log(user);
     if(user === null){
         history.push('/sign-in');
     }
