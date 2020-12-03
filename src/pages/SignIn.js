@@ -10,12 +10,15 @@ import UserContext from '../contexts/UserContext';
 export default function SignIn(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isDisabled, setIsDisabled] = useState(false);
     const { setUser } = useContext(UserContext);
     const history = useHistory();
 
     function verifyInputs(){
+        setIsDisabled(true);
         if(!email || !password){
             alert('Preencha todos os campos');
+            setIsDisabled(false);
         }
         else{
             const request = axios.post('http://localhost:3000/api/sign-in', { email, password });
@@ -23,7 +26,10 @@ export default function SignIn(){
                 setUser(response.data);
                 history.push('/');
             })
-            .catch(error => alert(error.response.data.error));
+            .catch(error => {
+                alert(error.response.data.error);
+                setIsDisabled(false);
+            });
         }
     }
 
@@ -40,7 +46,7 @@ export default function SignIn(){
                     value = {password}
                 />
             </Form>
-            <Button type = 'submit' onClick={verifyInputs}>Entrar</Button>
+            <Button type = 'submit' onClick={verifyInputs} disabled = {isDisabled}>Entrar</Button>
             <Link to = '/sign-up'>
                 <Action>Primeira vez? Cadastre-se!</Action>
             </Link>

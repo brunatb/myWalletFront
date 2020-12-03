@@ -10,8 +10,8 @@ export default function Transactions(){
         const request = axios.get('http://localhost:3000/api/transactions', {headers: { 'Authorization': `Bearer ${user.token}`}});
         request.then(response => setTransactions(response.data))
         .catch(error => alert(error.response.data.error));
-    })
-
+    }, []);
+    console.log(transactions);
     return(
         <TrasactionContainer transactions = {transactions}>
             {transactions.length === 0 ? 
