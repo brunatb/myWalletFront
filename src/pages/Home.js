@@ -5,22 +5,34 @@ import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 import styled from 'styled-components';
 import UserContext from '../contexts/UserContext';
 import Transactions from '../components/Transactions';
+import axios from 'axios';
 
 export default function Home(){
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const history = useHistory();
-    console.log(user);
+    
     if(user === null){
         history.push('/sign-in');
+    }
+
+    function signOut(){
+        const request = axios.post('http://localhost:3000/api/sign-out', {}, {headers: { 'Authorization': `Bearer ${user.token}`}});
+        request.then(() => {
+            setUser(null);
+            history.push('/sign-in');
+        })
+        .catch(error => {
+            alert("Erro");
+        });
     }
 
     return (
         <Wrapper>
             <div className = 'top'>
-                <h2>Olá {user.name}</h2>
-                <VscSignOut />
+                <h2>Olá {user ? user.name : null}</h2>
+                <VscSignOut onClick = {signOut} />
             </div>
-            <Transactions />
+            {user ?  <Transactions /> : null}
             <div className = 'containerButtons'>
                 <Link to = '/earns'>
                     <button>
