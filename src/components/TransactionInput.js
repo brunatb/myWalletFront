@@ -1,16 +1,19 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, Fragment } from 'react';
 import UserContext from '../contexts/UserContext';
 import axios from 'axios';
 import { IoMdArrowRoundBack } from 'react-icons/io';
+import DatePicker from "react-datepicker";
 
 import Wrapper from '../shared/Wrapper';
 import Button from '../shared/Button';
 import Form from '../shared/Form';
 import { useHistory, useLocation } from 'react-router-dom';
 
+
 export default function TransactionInput(){
     const [value, setValue] = useState('');
     const [description, setDescription] = useState('');
+    const [startDate, setStartDate] = useState(new Date());
     const [isDisabled, setIsDisabled] = useState(false);
     const { user, setUser } = useContext(UserContext);
     const history = useHistory();

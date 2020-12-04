@@ -10,6 +10,7 @@ export default function Transactions(){
     const [load, setLoad] = useState(true)
     const { user } = useContext(UserContext); 
     const amount = parseFloat(user.amount.replace(',', '').replace('$', ''));
+    
     useEffect(() => {
         const request = axios.get('https://mywallet-backend.herokuapp.com/api/transactions', {headers: { 'Authorization': `Bearer ${user.token}`}});
         request.then(response => {
