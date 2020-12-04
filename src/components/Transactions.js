@@ -1,16 +1,21 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import styled from 'styled-components';
 import UserContext from '../contexts/UserContext';
 import Transaction from './Transaction';
 
 export default function Transactions(){
     const [transactions, setTransactions] = useState([]);
+    const [load, setLoad] = useState(true)
     const { user } = useContext(UserContext); 
     const amount = parseFloat(user.amount.replace(',', '').replace('$', ''));
     useEffect(() => {
         const request = axios.get('https://mywallet-backend.herokuapp.com/api/transactions', {headers: { 'Authorization': `Bearer ${user.token}`}});
-        request.then(response => setTransactions(response.data))
+        request.then(response => {
+            setTransactions(response.data);
+            setLoad(false);
+        })
         .catch(error => alert(error.response.data.error));
     }, []);
     
@@ -19,7 +24,7 @@ export default function Transactions(){
         <TransactionContainer transactions = {transactions} amount = {amount}>
             <span>
                 {transactions.length === 0 ? 
-                    <p>Não há registro de <br /> entrada ou saída</p> :
+                    load ? <CircularProgress /> : <p>Não há registro de <br /> entrada ou saída</p> :
                     transactions.map(t => 
                         <Transaction
                             key = {t.id}
@@ -50,7 +55,7 @@ const TransactionContainer = styled.div`
     ${props => props.transactions.length === 0 ?  "display: flex; justify-content: center; align-items: center;" : 'display: flex; flex-direction: column; justify-content: space-between;'}
     overflow: scroll;
 
-    & > p{
+    & > span{
         color: #868686;
         font-size: 20px;
     }
@@ -58,7 +63,7 @@ const TransactionContainer = styled.div`
     & > div{
         display: flex;
         justify-content: space-between;
-
+        font-size: 18px;
         .balance{
             font-weight: bold;
         }

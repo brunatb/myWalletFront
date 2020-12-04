@@ -19,12 +19,13 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     margin: 0 0 10px 0;
+    font-size: 18px;
+    
     .date{
         color: #C6C6C6;
-        font-size: 16px;
     }
-
     .value{
-        color: ${props => props.value > 0 ? '#03AC00' : '#C70000'}
+        color: ${props => props.value > 0 ? '#03AC00' : '#C70000'};
+        
     }
 `;
