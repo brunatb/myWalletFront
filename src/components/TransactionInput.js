@@ -26,7 +26,7 @@ export default function TransactionInput(){
             if(location.pathname === '/expenses'){
                 treatedValue = treatedValue * (-1);
             }
-            const request = axios.post('http://localhost:3000/api/transactions', {value: treatedValue, description}, {headers: { Authorization: `Bearer ${user.token}`}});
+            const request = axios.post('https://mywallet-backend.herokuapp.com/api/transactions', {value: treatedValue, description}, {headers: { Authorization: `Bearer ${user.token}`}});
             request.then(response => {
                 setUser(response.data);
                 history.push('/');

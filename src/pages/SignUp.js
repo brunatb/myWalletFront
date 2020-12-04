@@ -21,7 +21,7 @@ export default function SignUp(){
             setIsDisabled(false);
         }
         else{
-            const request = axios.post('http://localhost:3000/api/sign-up', {name, email, password,     confirmPassword});
+            const request = axios.post('https://mywallet-backend.herokuapp.com/api/sign-up', {name, email, password,     confirmPassword});
             request.then(() => history.push('/sign-in')).catch(error => {
                 alert(error.response.data.error);
                 setIsDisabled(false);

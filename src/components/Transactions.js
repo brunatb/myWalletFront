@@ -9,7 +9,7 @@ export default function Transactions(){
     const { user } = useContext(UserContext); 
     const amount = parseFloat(user.amount.replace(',', '').replace('$', ''));
     useEffect(() => {
-        const request = axios.get('http://localhost:3000/api/transactions', {headers: { 'Authorization': `Bearer ${user.token}`}});
+        const request = axios.get('https://mywallet-backend.herokuapp.com/api/transactions', {headers: { 'Authorization': `Bearer ${user.token}`}});
         request.then(response => setTransactions(response.data))
         .catch(error => alert(error.response.data.error));
     }, []);

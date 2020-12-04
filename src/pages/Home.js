@@ -16,7 +16,7 @@ export default function Home(){
     }
 
     function signOut(){
-        const request = axios.post('http://localhost:3000/api/sign-out', {}, {headers: { 'Authorization': `Bearer ${user.token}`}});
+        const request = axios.post('https://mywallet-backend.herokuapp.com/api/sign-out', {}, {headers: { 'Authorization': `Bearer ${user.token}`}});
         request.then(() => {
             setUser(null);
             history.push('/sign-in');

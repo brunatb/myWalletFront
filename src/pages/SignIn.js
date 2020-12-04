@@ -21,7 +21,7 @@ export default function SignIn(){
             setIsDisabled(false);
         }
         else{
-            const request = axios.post('http://localhost:3000/api/sign-in', { email, password });
+            const request = axios.post('https://mywallet-backend.herokuapp.com/api/sign-in', { email, password });
             request.then(response => {
                 setUser(response.data);
                 history.push('/');
