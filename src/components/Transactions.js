@@ -14,21 +14,29 @@ export default function Transactions(){
         .catch(error => alert(error.response.data.error));
     }, []);
     
+    
     return(
         <TransactionContainer transactions = {transactions} amount = {amount}>
-            {transactions.length === 0 ? 
-                <p>Não há registro de <br /> entrada ou saída</p> :
-                transactions.map(t => 
-                    <Transaction
-                        key = {t.id}
-                        transaction = {t}
-                    ></Transaction>    
-                )
+            <span>
+                {transactions.length === 0 ? 
+                    <p>Não há registro de <br /> entrada ou saída</p> :
+                    transactions.map(t => 
+                        <Transaction
+                            key = {t.id}
+                            transaction = {t}
+                        ></Transaction>    
+                    )
+                }
+            </span>
+            {
+                transactions.length === 0 ?
+                null :
+                <div>
+                    <p className = 'balance'>SALDO</p>
+                    <p className = 'amount'>{amount.toFixed(2).replace('.', ',').replace('-', '')}</p>
+                </div>
             }
-            <div>
-                <p className = 'balance'>SALDO</p>
-                <p className = 'amount'>{amount.toFixed(2).replace('.', ',').replace('-', '')}</p>
-            </div>
+            
         </TransactionContainer>
     )
 }

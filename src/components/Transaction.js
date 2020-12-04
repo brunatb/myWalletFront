@@ -1,14 +1,14 @@
 import React from 'react';
+import dayjs from 'dayjs';
 import styled from 'styled-components';
 
 export default function Transaction({ transaction }){
     const { date, description, value } = transaction;
-    const dateFormat = `${date[8]}${date[9]}/${date[5]}${date[6]}`;
     const valueFormat = parseFloat(value.replace(',', '').replace('$', ''));
     
     return (
         <Container value = {valueFormat}>
-            <p className = 'date'>{dateFormat}</p>
+            <p className = 'date'>{dayjs(date).format('DD/MM')}</p>
             <p className = 'description'>{description}</p>
             <p className = 'value'>{valueFormat.toFixed(2).replace('.', ',').replace('-', '')}</p>
         </Container>

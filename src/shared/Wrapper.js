@@ -10,9 +10,16 @@ const Wrapper = styled.div`
     padding: 25px 0;
 
     & > p{
+        
+    }
+
+    .top{
         font-size: 26px;
         font-weight: bold;
         color: white;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
     }
 
 `;

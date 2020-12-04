@@ -1,18 +1,20 @@
 import React, { useState, useContext } from 'react';
 import UserContext from '../contexts/UserContext';
 import axios from 'axios';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 
 import Wrapper from '../shared/Wrapper';
 import Button from '../shared/Button';
 import Form from '../shared/Form';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
-export default function Earns(){
+export default function TransactionInput(){
     const [value, setValue] = useState('');
     const [description, setDescription] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
     const { user, setUser } = useContext(UserContext);
     const history = useHistory();
+    const location = useLocation();
 
     function validateInputs(){
         setIsDisabled(true);
@@ -20,7 +22,10 @@ export default function Earns(){
             alert("Preencha todos os campos!");
             setIsDisabled(false);
         }else{
-            const treatedValue = parseFloat(value.replace(',', '.'));
+            let treatedValue = parseFloat(value.replace(',', '.'));
+            if(location.pathname === '/expenses'){
+                treatedValue = treatedValue * (-1);
+            }
             const request = axios.post('http://localhost:3000/api/transactions', {value: treatedValue, description}, {headers: { Authorization: `Bearer ${user.token}`}});
             request.then(response => {
                 setUser(response.data);
@@ -35,7 +40,10 @@ export default function Earns(){
 
     return(
         <Wrapper>
-            <p>Nova entrada</p>
+            <div className = 'top'>
+                <p>{location.pathname === '/earns' ? 'Nova entrada' : 'Nova saída'}</p>
+                <IoMdArrowRoundBack onClick = {() => history.push('/')} />
+            </div>
             <Form onSubmit = {e => e.preventDefault()}>
                 <input type = 'text' step = "0.01" min = "0.01" placeholder = "Valor"
                     value = {value}
@@ -48,7 +56,7 @@ export default function Earns(){
                     onChange = {e => setDescription(e.target.value)}
                 />
             </Form>
-            <Button type ='submit' onClick = {validateInputs} disabled = {isDisabled}>Salvar entrada</Button>
+            <Button type ='submit' onClick = {validateInputs} disabled = {isDisabled}>{location.pathname === '/earns' ? 'Salvar entrada' : 'Salvar saída'}</Button>
         </Wrapper>
     )
 }

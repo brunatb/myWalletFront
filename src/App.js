@@ -5,9 +5,8 @@ import {
     Route
 } from "react-router-dom";
 import styled from 'styled-components';
+import TransactionInput from './components/TransactionInput';
 import { UserProvider } from './contexts/UserContext';
-import Earns from './pages/Earns';
-import Expenses from './pages/Expenses';
 import Home from './pages/Home';
 
 import SignIn from './pages/SignIn';
@@ -26,10 +25,10 @@ export default function App(){
                             <SignIn />
                         </Route>
                         <Route path = '/earns'>
-                            <Earns />
+                            <TransactionInput />
                         </Route>
                         <Route path = '/expenses'>
-                            <Expenses />
+                            <TransactionInput />
                         </Route>
                         <Route path = '/'>
                             <Home />
